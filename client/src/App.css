@@ -1,0 +1,43 @@
+/* .App {
+  text-align: center;
+} */
+.header_ul{
+  padding: 5px;
+  margin: 0px;
+  background-color: darkgreen;
+}
+.header_ul li{
+  display: inline-block;
+  padding: 10px;
+}
+.header_ul li a{
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+}
+.register_screen{
+  margin-left: 30%;
+}
+.input_data{
+  padding: 10px;
+  display: block;
+  border: 1px solid darkgreen;
+  width: 300px;
+  margin: 20px;
+}
+.register_btn{
+  margin: 20px;
+  width: 100px;
+  padding:10px;
+  /* background-color: darkgreen; */
+  border: solid 1px;
+  cursor: pointer;
+}
+.footer{
+  position: absolute;
+  bottom: 0;
+  background-color: darkgreen;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
