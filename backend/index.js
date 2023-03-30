@@ -1,6 +1,14 @@
 const express = require("express");
+require("./dbs/Config")
+const User = require("./dbs/User")
+
 const app = express()
-app.get("/", (req,res)=>{
-    res.send("App is running")
-});
+app.use(express.json());
+
+app.post("/register", async(req, res) => {
+    let data = new User(req.body);
+    let userData = await data.save()
+    console.log(userData)
+    res.send(userData)
+})
 app.listen(5000)
