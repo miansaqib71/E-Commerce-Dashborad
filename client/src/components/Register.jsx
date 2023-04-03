@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import {useNavigate} from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import {json, useNavigate} from 'react-router-dom'
 
 const Register = () => {
   const [name, setName] = useState("")
@@ -7,6 +7,13 @@ const Register = () => {
   const [password, setPassword] = useState("")
   const redirct = useNavigate()
 
+  useEffect(()=>{
+    const auth = localStorage.getItem("user")
+   if(auth)
+   {
+    redirct("/home")
+   }
+  },[])
   const collectData = async () => {
     console.log(name, email, password);
     let data = await fetch("http://localhost:5000/register",{
@@ -17,9 +24,11 @@ const Register = () => {
       }
     });
     data = await data.json();
+    localStorage.setItem("user", JSON.stringify(data))
     console.log(data)
-    redirct("/home")
+    // redirct("/home")
   }
+ 
   return (
     <div className='register_screen'>
       <input className='input_data' type={'text'} value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter Name" />
