@@ -1,8 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, redirect, useNavigate } from 'react-router-dom'
 
 const Header = () => {
+  const redirect = useNavigate();
   const auth = localStorage.getItem("user")
+  const logout = ()=>{
+localStorage.clear();
+redirect('/register')
+
+  }
   return (
    <div>
     <ul className='header_ul'>
@@ -10,7 +16,7 @@ const Header = () => {
       <li><Link to='/add'>Add Product</Link></li>
       <li><Link to='/update'>Update Product</Link></li>
       <li><Link to='/profile'>Profile</Link></li>
-      <li>{auth ? <Link to='/logout'>Logout</Link> :<Link to='/register'>Register</Link> }</li>
+      <li>{auth ? <Link onClick={logout} to='/regsiter'>Logout</Link> :<Link to='/register'>Register</Link> }</li>
     </ul>
    </div>
   )
