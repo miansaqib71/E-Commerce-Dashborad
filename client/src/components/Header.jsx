@@ -4,21 +4,32 @@ import { Link, redirect, useNavigate } from 'react-router-dom'
 const Header = () => {
   const redirect = useNavigate();
   const auth = localStorage.getItem("user")
-  const logout = ()=>{
-localStorage.clear();
-redirect('/register')
+  console.log(auth)
+  const logout = () => {
+    localStorage.clear();
+    redirect('/register')
 
   }
   return (
-   <div>
-    <ul className='header_ul'>
-      <li><Link to='/home'>Home</Link></li>
-      <li><Link to='/add'>Add Product</Link></li>
-      <li><Link to='/update'>Update Product</Link></li>
-      <li><Link to='/profile'>Profile</Link></li>
-      <li>{auth ? <Link onClick={logout} to='/regsiter'>Logout</Link> :<Link to='/register'>Register</Link> }</li>
-    </ul>
-   </div>
+    <div>
+      <img alt='logo'
+      className='logo_design'
+      src="https://cdn.vectorstock.com/i/1000x1000/95/31/online-shop-logo-ecommerce-logo-design-vector-32009531.webp"
+      />
+    
+      {auth ? <ul className='header_ul'>
+        <li><Link to='/home'>Home</Link></li>
+        <li><Link to='/add'>Add Product</Link></li>
+        <li><Link to='/update'>Update Product</Link></li>
+        <li><Link to='/profile'>Profile</Link></li>
+        <li> <Link onClick={logout} to='/register'>Logout{" "} ({JSON.parse(auth).name})</Link></li>
+      </ul> 
+      : 
+      <ul className='header_ul header_right'>
+        <li><Link to='/register'>Register</Link> </li>
+        <li><Link to='/login'>Login</Link> </li>
+      </ul>}
+   </div >
   )
 }
 

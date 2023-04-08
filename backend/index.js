@@ -21,7 +21,7 @@ app.post("/login", async(req,res)=>{
     let user = await User.findOne(req.body).select("-password")
     if(user){
 
-        res.send(req.body)
+        res.send(user)
     }else{
         res.send({data:"data Not found"})
     }

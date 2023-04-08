@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Footer from "./components/Footer";
 import Register from "./components/Register";
 import Private from "./components/Private";
+import Login from "./components/Login";
 function App() {
   return (
     <div className="App">
@@ -19,9 +20,10 @@ function App() {
           <Route path="/profile" element={<h1>Profile Component</h1>} />
           </Route>
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
-        <Footer />
       </BrowserRouter>
+        <Footer />
     </div>
   );
 }
