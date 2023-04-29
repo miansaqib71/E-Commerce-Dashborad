@@ -52,3 +52,23 @@
   text-align: center;
   padding: 10px;
 }
+.valid{
+  display: block;
+  color: red;
+  margin-top: 20px;
+  margin-left: 20px;
+  border-radius: 2px;
+}
+.product_show{
+  margin-top:  45px;
+  text-align: center;
+}
+.product_show ul li{
+  display: inline-block;
+  width: 160px;
+  border: 1px solid darkgreen;
+  padding: 5px;
+}
+.product_show ul{
+  margin: 0px;
+}
