@@ -20,7 +20,7 @@ const Header = () => {
       {auth ? <ul className='header_ul'>
         <li><Link to='/products'>Products</Link></li>
         <li><Link to='/add'>Add Product</Link></li>
-        <li><Link to='/update'>Update Product</Link></li>
+        <li><Link>Update Product</Link></li>
         <li><Link to='/profile'>Profile</Link></li>
         <li> <Link onClick={logout} to='/register'>Logout{" "} ({JSON.parse(auth).name})</Link></li>
       </ul> 
