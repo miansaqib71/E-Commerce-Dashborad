@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import {useNavigate, useParams} from "react-router-dom";
 
 const UpdateProduct = () => {
   const [name, setName] = useState("")
@@ -6,13 +7,38 @@ const UpdateProduct = () => {
   const [category, setCategory] = useState("")
   const [company, setComapny] = useState("")
 
+const getId= useParams();
+const naveigate = useNavigate();
+useEffect(()=>{
+  dataUpdate();
+},[])
+const dataUpdate = async()=>{
+  let data = await fetch(`http://localhost:5000/product/${getId.id}`)
+  data = await data.json();
+  console.log(data)
+  setName(data.name);
+  setPrice(data.price);
+  setCategory(data.category);
+  setComapny(data.company);
+}
   const updateProduct = async () => {
     console.log(name, price, )
+    let data = await fetch(`http://localhost:5000/product/${getId.id}`,{
+      method:'put',
+      body: JSON.stringify({name, price,category,company}),
+      headers:{
+        'Content-Type': 'Application/json'
+      }
+    })
+    data = await data.json();
+    if(data){
+      naveigate("/products")
+    }
   }
 
   return (
     <div className='register_screen'>
-      <h1>Add Product</h1>
+      <h1>Update Product</h1>
       <input className='input_data' type={'text'}
         value={name} onChange={(e) => setName(e.target.value)}
         placeholder="Enter Prdouct Name" />

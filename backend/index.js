@@ -43,10 +43,23 @@ app.get("/products", async (req, res) => {
         res.send({ data: "No Data Found" })
     }
 })
-app.delete("/product/:id", async(req, res)=>{
+app.delete("/product/:id", async (req, res) => {
     // res.send("app is working")
-    let data = await Product.deleteOne({_id:req.params.id})
+    let data = await Product.deleteOne({ _id: req.params.id })
     res.send(req.params)
+})
+app.get("/product/:id", async (req, res) => {
+    let data = await Product.findOne({ _id: req.params.id })
+    if (data) {
+        res.send(data)
+    } else {
+        res.send({ "data":"data not found"})
+    }
+})
+app.put("/product/:id", async(req,res)=>{
+    let data = await Product.updateOne({_id:req.params.id},
+        {$set:req.body})
+        res.send(data)
 })
 
 app.listen(5000)
