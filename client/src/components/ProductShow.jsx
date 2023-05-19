@@ -6,7 +6,11 @@ const ProductShow = () => {
         getData();
     }, [])
     const getData = async () => {
-        let data = await fetch("http://localhost:5000/products");
+        let data = await fetch("http://localhost:5000/products",{
+            headers:{
+                authorization:JSON.parse(localStorage.getItem("token"))
+            }
+        });
         data = await data.json();
         setProducts(data)
     }
@@ -22,11 +26,25 @@ const ProductShow = () => {
         }
 
     }
+    const searchHandler = async(event)=>{
+let value  = event.target.value;
+if(value){
+    let data = await fetch(`http://localhost:5000/search/${value}`)
+data  = await data.json();
+if(data){
+    setProducts(data)
+}
+}else{
+    getData()
+}
+// console.log(value)
+    }
     return (
         <>
             <div className='product_show'>
-                <h1>Products List Show</h1>
-                <ul>
+                <h1>Products List Show</h1>  
+                <input type='search' className='search_product' placeholder='search product' onChange={searchHandler} />
+                              <ul>
                     <li>S.No</li>
                     <li>Name</li>
                     <li>Price</li>
@@ -35,7 +53,7 @@ const ProductShow = () => {
                     <li>Operations</li>
                 </ul>
                 {
-                    prodcuts.map((item, index) => {
+                    prodcuts.length > 0 ? prodcuts.map((item, index) => {
                         return (
                             <>
                                 <ul key={item._id}>
@@ -50,7 +68,7 @@ const ProductShow = () => {
                                 </ul>
                             </>
                         )
-                    })
+                    }) : <h3>No Data Found</h3>
                 }
 
             </div>

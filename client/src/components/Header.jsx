@@ -18,7 +18,7 @@ const Header = () => {
       />
     
       {auth ? <ul className='header_ul'>
-        <li><Link to='/products'>Products</Link></li>
+        <li><Link to='/'>Products</Link></li>
         <li><Link to='/add'>Add Product</Link></li>
         <li><Link>Update Product</Link></li>
         <li><Link to='/profile'>Profile</Link></li>

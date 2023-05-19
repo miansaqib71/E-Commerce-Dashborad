@@ -72,3 +72,10 @@
 .product_show ul{
   margin: 0px;
 }
+.search_product {
+  width: 300px;
+  height: 35px;
+  margin: 21px;
+  border: solid 1px skyblue;
+  padding-left: 18px;
+}

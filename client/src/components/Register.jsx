@@ -22,7 +22,9 @@ const Register = () => {
       }
     });
     data = await data.json();
-    localStorage.setItem("user", JSON.stringify(data))
+    localStorage.setItem("user", JSON.stringify(data.userData))
+    localStorage.setItem("token", JSON.stringify(data.auth))
+   
     console.log(data)
     navigate("/")
   }

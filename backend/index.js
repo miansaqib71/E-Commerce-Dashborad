@@ -4,6 +4,9 @@ require("./dbs/Config")
 const User = require("./dbs/User")
 const Product = require("./dbs/Product")
 
+const jwt = require('jsonwebtoken');
+var privateKey = 'private.key';
+
 const app = express()
 app.use(express.json());
 app.use(cors())
@@ -14,15 +17,25 @@ app.post("/register", async (req, res) => {
     // console.log(userData)
     userData = userData.toObject();
     delete data.password
-    res.send(userData)
+    jwt.sign({userData}, privateKey, { expiresIn: '24h' }, function(err, token) {
+        if(err){
+         res.send({result:"Something wrong"})
+        }
+        res.send({userData, auth:token})
+       });
+    // res.send(userData)
 })
 
 app.post("/login", async (req, res) => {
     if (req.body.password && req.body.email) {
         let user = await User.findOne(req.body).select("-password")
         if (user) {
-
-            res.send(user)
+            jwt.sign({user}, privateKey, { expiresIn: '24h' }, function(err, token) {
+               if(err){
+                res.send({result:"Something wrong"})
+               }
+               res.send({user, auth:token})
+              });
         } else {
             res.send({ data: "data Not found" })
         }
@@ -60,6 +73,23 @@ app.put("/product/:id", async(req,res)=>{
     let data = await Product.updateOne({_id:req.params.id},
         {$set:req.body})
         res.send(data)
+})
+
+app.get("/search/:key", async(req,res)=>{
+    let data = await Product.find({
+        "$or":[
+            {
+                name:{$regex:req.params.key}
+            },
+            {
+                category:{$regex:req.params.key}
+            },
+            {
+                company:{$regex:req.params.key}
+            }
+        ]
+    })
+    res.send(data)
 })
 
 app.listen(5000)
