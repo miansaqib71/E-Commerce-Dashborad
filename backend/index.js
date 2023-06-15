@@ -96,7 +96,7 @@ function tokenVerify(req, res, next) {
     let token = req.headers["authorization"]
     if (token) {
         token = token.split(" ")[1]
-        console.log("Middler ware Called", token)
+        // console.log("Middler ware Called", token)
         jwt.verify(token, privateKey, (err, valid) => {
             if (err) {
                 res.status(401).send({ result: "Please add valid Token" })

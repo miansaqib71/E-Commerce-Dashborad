@@ -9,17 +9,21 @@ const AddProduct = () => {
   const [valid, setValid] = useState(false)
   const addProduct = async () => {
     if (!name || !price || !company || !category) {
-      setValid(true);  
+      setValid(true);
       return true
     }
     const userId = JSON.parse(localStorage.getItem("user"))._id;
     console.log(userId)
     let result = await fetch("http://localhost:5000/add-product", {
       method: "post",
+      headers: {
+        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`
+      },
       body: JSON.stringify({
         name, price, category, company, userId
       }),
       headers: {
+        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
         "Content-type": "application/json"
       }
     });

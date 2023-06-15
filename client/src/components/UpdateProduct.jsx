@@ -13,7 +13,11 @@ useEffect(()=>{
   dataUpdate();
 },[])
 const dataUpdate = async()=>{
-  let data = await fetch(`http://localhost:5000/product/${getId.id}`)
+  let data = await fetch(`http://localhost:5000/product/${getId.id}`,{
+    headers:{
+      authorization:`bearer ${JSON.parse(localStorage.getItem("token"))}`
+  }
+  })
   data = await data.json();
   console.log(data)
   setName(data.name);
@@ -27,7 +31,9 @@ const dataUpdate = async()=>{
       method:'put',
       body: JSON.stringify({name, price,category,company}),
       headers:{
+        authorization:`bearer ${JSON.parse(localStorage.getItem("token"))}`,
         'Content-Type': 'Application/json'
+    
       }
     })
     data = await data.json();
